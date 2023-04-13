@@ -1,0 +1,98 @@
+@import "./variables.scss";
+
+.container-weatherapp {
+  background: linear-gradient(
+      180deg,
+      rgba(12, 154, 234, 0.71) 32.81%,
+      rgba(86, 114, 213, 0.3408) 100%
+    ),
+    rgba(0, 0, 0, 0.27);
+  //   height: 100vh;
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  padding: 80px 20px;
+
+  .weather-title {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+    text-align: center;
+    color: $title;
+    margin-bottom: 65px;
+  }
+
+  .weather-input {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 44px;
+    padding: 5px 25px;
+    outline: none;
+    background: $white;
+    border: 1px solid $placeholder;
+    border-radius: 10px;
+    width: 76%;
+  }
+
+  .weather-form {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 65px;
+  }
+
+  .fa-search {
+    font-size: 24px;
+    color: $placeholder;
+  }
+
+  .weather-country {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 70px;
+    text-align: center;
+    font-family: "Roboto";
+    color: $white;
+  }
+
+  .weather-btn {
+    background: transparent;
+    border: none;
+    outline: none;
+    position: absolute;
+    top: 15px;
+    right: 14%;
+  }
+
+  .weather-image {
+    max-width: 135px;
+  }
+
+  .weather-wrap-img {
+    margin-right: 30px;
+  }
+
+  .weather-temp-desc {
+    display: flex;
+  }
+
+  .weather-temp {
+    display: flex;
+    flex-direction: column;
+
+    .temp {
+      font-family: "Roboto";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 80px;
+      line-height: 117px;
+      color: $white;
+    }
+  }
+}
