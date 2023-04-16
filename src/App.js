@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 import cloudImage from "./assets/cloud.png";
+import iconWind from "./assets/icon-wind.svg";
+import iconHum from "./assets/icon-hum.svg";
 
 
 function App() {
@@ -127,7 +129,22 @@ function App() {
               </div>
               <div className="weather-temp">
                 <p className="temp">34°C</p>
-                
+                <span className="weather-date"> Apr 01, 2023</span>
+              </div>
+            </div>
+            <div className="wrap-weather-mobile">
+              <h5 className="weather-transcript">Partly sunny</h5>
+              <div className="weather-wind-hum">
+                <div className="wrap-weather-wind">
+                  <img className="icon-wind-hum" src={iconWind} alt="icon-wind"></img>
+                  <p className="weather-wind">Wind</p>
+                  <p className="weather-wind-speed">100 km/s</p>
+                </div>
+                <div className="wrap-weather-wind">
+                  <img className="icon-wind-hum" src={iconHum} alt="icon-wind"></img>
+                  <p className="weather-wind">Hum</p>
+                  <p className="weather-wind-speed">54%</p>
+                </div>
               </div>
             </div>
           </div>

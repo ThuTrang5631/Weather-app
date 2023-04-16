@@ -1,5 +1,5 @@
 // media queries
-$breakpoints-xs: 375px;
+$breakpoints-xs: 420px;
 $breakpoints-md: 768px;
 $breakpoints-lg: 992px;
 $breakpoints-xl: 1200px;
@@ -32,7 +32,8 @@ h2,
 h3,
 h4,
 h5,
-h6 p {
+h6,
+p {
   margin: 0;
 }
 
