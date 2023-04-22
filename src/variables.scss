@@ -1,4 +1,5 @@
 // media queries
+$breakpoints-xxs: 375px;
 $breakpoints-xs: 420px;
 $breakpoints-md: 768px;
 $breakpoints-lg: 992px;
@@ -9,6 +10,8 @@ $breakpoints-xxl: 1440px;
 $title: #e3e574;
 $white: #ffffff;
 $placeholder: #838baa;
+$black: #000;
+$hover: #f8f9fa;
 
 // layout
 
@@ -24,6 +27,7 @@ html {
   -webkit-tap-highlight-color: transparent;
   -webkit-text-size-adjust: 100%;
   margin: 0;
+  scroll-behavior: smooth;
 }
 
 body,

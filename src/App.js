@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
@@ -5,9 +6,77 @@ import cloudImage from "./assets/cloud.png";
 import iconWind from "./assets/icon-wind.svg";
 import iconHum from "./assets/icon-hum.svg";
 
-
 function App() {
+  const listCity = [
+    "Ba Ria",
+    "Bac Lieu",
+    "Bao Loc",
+    "Bac Giang",
+    "Bac Kan",
+    "Bac Ninh",
+    "Ben Tre",
+    "Bien Hoa",
+    "Buon Ma Thuot",
+    "Ca Mau",
+    "Cam Ranh",
+    "Cao Bang",
+    "Cao Lanh",
+    "Da Lat",
+    "Dien Bien Phu",
+    "Dong Ha",
+    "Dong Hoi",
+    "Dong Xoai",
+    "Ha Giang",
+    "Ha Long",
+    "Ha Tien",
+    "Ha Tinh",
+    "Hai Duong",
+    "Hoa Binh",
+    "Hoi An",
+    "Hue",
+    "Hung Yen",
+    "Kom Tum",
+    "Lai Chau",
+    "Lang Son",
+    "Lao Cai",
+    "Long Xuyen",
+    "My Tho",
+    "Nam Dinh",
+    "Nha Trang",
+    "Ninh Binh",
+    "Phan Thiet",
+    "Pleiku",
+    "Quang Ngai",
+    "Quy Nhon",
+    "Rach Gia",
+    "Sa Dec",
+    "Soc Trang",
+    "Son La",
+    "Tam Ky",
+    "Tan An",
+    "Tay Ninh",
+    "Thai Binh",
+    "Thai Nguyen",
+    "Thanh Hoa",
+    "Thu Dau Mot",
+    "Tra Vinh",
+    "Tuy Hoa",
+    "Tuyen Quang",
+    "Uong Bi",
+    "Viet Tri",
+    "Vinh",
+    "Vinh Long",
+    "Vinh Yen",
+    "Vung Tau",
+    "Yen Bai",
+    "Di An",
+    "Phu Quoc",
+    "Long Khanh",
+  ];
+
   const [city, setCity] = useState("");
+  const [show, setShow] = useState(false);
+
   const [temp, setTemp] = useState("");
   const [desc, setDesc] = useState("");
   const [hum, setHum] = useState("");
@@ -19,55 +88,80 @@ function App() {
 
   const date = new Date().toString().slice(0, 25);
 
-  const fetchData = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=648a959b8ea7e0c395c8f575a8e5abac&units=metric`
-      );
-      const data = res.data;
-      setTemp(data.main.temp);
-      setDesc(data.weather[0].description);
-      setHum(data.main.humidity);
-      setCountry(data.sys.country);
-      setSpeed(data.wind.speed);
-      setName(data.name);
-      setIcon(data.weather[0].icon);
-
-      setIsDataFetched(true);
-
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-      alert("Please enter a valid location");
-    }
+  const handleChangeCity = (e) => {
+    console.log("input", e.target.value);
+    setCity(e.target.value);
   };
 
-  const defaultData = async () => {
-    if (isDataFetched === false || city === "") {
-      try {
-        const res = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?q=lagos&appid=648a959b8ea7e0c395c8f575a8e5abac&units=metric`
-        );
-        const data = res.data;
-        setTemp(data.main.temp);
-        setDesc(data.weather[0].description);
-        setHum(data.main.humidity);
-        setCountry(data.sys.country);
-        setSpeed(data.wind.speed);
-        setName(data.name);
-        setIcon(data.weather[0].icon);
+  const ItemList = (() => {
+    if (!show) return [];
+    return listCity
+      .filter((item) => item.toLowerCase().includes(city.toLowerCase()))
+      .map((item) => (
+        <button
+          className="city-suggest"
+          onClick={() => {
+            console.log("item");
+            setCity(item);
+            setShow(false);
+          }}
+          key={item}
+        >
+          {item}
+        </button>
+      ));
+  })();
+  console.log("city choose", city);
 
-        console.log(data);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  };
+  // const fetchData = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const res = await axios.get(
+  //       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=648a959b8ea7e0c395c8f575a8e5abac&units=metric`
+  //     );
+  //     const data = res.data;
+  //     setTemp(data.main.temp);
+  //     setDesc(data.weather[0].description);
+  //     setHum(data.main.humidity);
+  //     setCountry(data.sys.country);
+  //     setSpeed(data.wind.speed);
+  //     setName(data.name);
+  //     setIcon(data.weather[0].icon);
 
-  useEffect(() => {
-    defaultData();
-  });
+  //     setIsDataFetched(true);
+
+  //     console.log(data);
+  //   } catch (err) {
+  //     console.log(err);
+  //     alert("Please enter a valid location");
+  //   }
+  // };
+
+  // const defaultData = async () => {
+  //   if (isDataFetched === false || city === "") {
+  //     try {
+  //       const res = await axios.get(
+  //         `https://api.openweathermap.org/data/2.5/weather?q=lagos&appid=648a959b8ea7e0c395c8f575a8e5abac&units=metric`
+  //       );
+  //       const data = res.data;
+  //       setTemp(data.main.temp);
+  //       setDesc(data.weather[0].description);
+  //       setHum(data.main.humidity);
+  //       setCountry(data.sys.country);
+  //       setSpeed(data.wind.speed);
+  //       setName(data.name);
+  //       setIcon(data.weather[0].icon);
+
+  //       console.log(data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   defaultData();
+  // });
 
   return (
     <div className="container-weatherapp">
@@ -115,17 +209,38 @@ function App() {
         </div>
       </div> */}
       <div className="wrap-weather">
-        <h3 className="weather-title">WEATHER  IN YOUR CITY</h3>
+        <h3 className="weather-title">WEATHER IN YOUR CITY</h3>
         <div className="weather-content">
-          <form className="weather-form">
-            <input className="weather-input" type="text" placeholder="Enter your city name.."/>
-            <button className="weather-btn"><i class="fa fa-search"></i></button>
-          </form>
+          <div className="wrap-form-suggest">
+            <form className="weather-form">
+              <input
+                onFocus={() => setShow(true)}
+                onBlur={() =>
+                  setTimeout(() => {
+                    setShow(false);
+                  }, 130)
+                }
+                onChange={handleChangeCity}
+                value={city}
+                className="weather-input"
+                type="text"
+                placeholder="Enter your city name.."
+              />
+              <button className="weather-btn">
+                <i className="fa fa-search"></i>
+              </button>
+            </form>
+            <div className="search-suggest">{ItemList}</div>
+          </div>
           <div className="weather-desc">
             <h2 className="weather-country">NEW YORK, USA</h2>
             <div className="weather-temp-desc">
               <div className="weather-wrap-img">
-                <img className="weather-image" src={cloudImage} alt="image weather"></img>
+                <img
+                  className="weather-image"
+                  src={cloudImage}
+                  alt="image weather"
+                />
               </div>
               <div className="weather-temp">
                 <p className="temp">34°C</p>
@@ -136,12 +251,20 @@ function App() {
               <h5 className="weather-transcript">Partly sunny</h5>
               <div className="weather-wind-hum">
                 <div className="wrap-weather-wind">
-                  <img className="icon-wind-hum" src={iconWind} alt="icon-wind"></img>
+                  <img
+                    className="icon-wind-hum"
+                    src={iconWind}
+                    alt="icon-wind"
+                  ></img>
                   <p className="weather-wind">Wind</p>
                   <p className="weather-wind-speed">100 km/s</p>
                 </div>
                 <div className="wrap-weather-wind">
-                  <img className="icon-wind-hum" src={iconHum} alt="icon-wind"></img>
+                  <img
+                    className="icon-wind-hum"
+                    src={iconHum}
+                    alt="icon-wind"
+                  ></img>
                   <p className="weather-wind">Hum</p>
                   <p className="weather-wind-speed">54%</p>
                 </div>

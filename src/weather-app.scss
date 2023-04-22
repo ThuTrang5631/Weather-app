@@ -8,9 +8,6 @@
     ),
     rgba(0, 0, 0, 0.27);
   min-height: 100vh;
-  // display: flex;
-  // flex-direction: column;
-  // align-items: center;
   padding: 80px 20px;
 
   .weather-title {
@@ -36,12 +33,10 @@
     border: 1px solid $placeholder;
     border-radius: 10px;
     width: 76%;
+    color: $black;
   }
 
   .weather-form {
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
     position: relative;
     margin-bottom: 65px;
   }
@@ -68,7 +63,7 @@
     outline: none;
     position: absolute;
     top: 15px;
-    right: 14%;
+    right: 26%;
   }
 
   .weather-image {
@@ -168,6 +163,53 @@
     line-height: 40px;
     color: rgba(255, 255, 255, 0.8);
   }
+
+  .wrap-form-suggest {
+    padding-left: 23vw;
+  }
+
+  .search-suggest {
+    border-radius: 10px;
+    width: 50%;
+    max-height: 220px;
+    overflow: auto;
+    overflow-x: hidden;
+    position: absolute;
+    top: 250px;
+    z-index: 300;
+    background-color: $white;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+      background-color: #f5f5f5;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #6d6d6d;
+      border-radius: 10px;
+    }
+
+    .city-suggest {
+      background-color: $white;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      outline: none;
+      border: none;
+      padding: 10px 10px 10px 25px;
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 44px;
+      color: $placeholder;
+      text-align: left;
+
+      &:hover {
+        background-color: $hover;
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: $breakpoints-lg) {
@@ -208,6 +250,7 @@
 
     .weather-btn {
       top: 12px;
+      right: 20%;
     }
 
     .weather-country {
@@ -265,6 +308,15 @@
       width: 70%;
       margin: 0 auto;
     }
+
+    .search-suggest {
+      top: 185px;
+
+      .city-suggest {
+        font-size: 15px;
+        line-height: 18px;
+      }
+    }
   }
 }
 
@@ -272,6 +324,18 @@
   .container-weatherapp {
     .wrap-weather-mobile {
       width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: $breakpoints-xxs) {
+  .container-weatherapp {
+    .weather-title {
+      font-size: 20px;
+    }
+
+    .wrap-form-suggest {
+      padding-left: 10vw;
     }
   }
 }
