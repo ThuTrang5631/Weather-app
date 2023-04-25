@@ -64,10 +64,11 @@
     position: absolute;
     top: 15px;
     right: 26%;
+    cursor: pointer;
   }
 
   .weather-image {
-    max-width: 135px;
+    width: 135px;
   }
 
   .weather-wrap-img {
@@ -84,6 +85,7 @@
   .weather-temp {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 
     .temp {
       font-family: "Roboto";
@@ -262,6 +264,10 @@
     .weather-temp-desc {
       flex-direction: column;
       margin-bottom: 20px;
+    }
+
+    .weather-temp {
+      align-items: center;
     }
 
     .weather-wrap-img {

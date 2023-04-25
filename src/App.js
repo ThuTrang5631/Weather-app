@@ -10,7 +10,6 @@ function App() {
   const listCity = [
     "Ba Ria",
     "Bac Lieu",
-    "Bao Loc",
     "Bac Giang",
     "Bac Kan",
     "Bac Ninh",
@@ -72,10 +71,18 @@ function App() {
     "Di An",
     "Phu Quoc",
     "Long Khanh",
+    "Ho Chi Minh",
   ];
 
   const [city, setCity] = useState("");
   const [show, setShow] = useState(false);
+  const [data, setData] = useState({});
+  // const date = new Date().toString().slice(0, 25);
+
+  const date = new Date().toString().split(" ").splice(1, 3).join(" ");
+  // let day = date2.getDate();
+
+  console.log("date", date);
 
   const [temp, setTemp] = useState("");
   const [desc, setDesc] = useState("");
@@ -86,10 +93,7 @@ function App() {
   const [icon, setIcon] = useState("");
   const [isDataFetched, setIsDataFetched] = useState(false);
 
-  const date = new Date().toString().slice(0, 25);
-
   const handleChangeCity = (e) => {
-    console.log("input", e.target.value);
     setCity(e.target.value);
   };
 
@@ -101,7 +105,6 @@ function App() {
         <button
           className="city-suggest"
           onClick={() => {
-            console.log("item");
             setCity(item);
             setShow(false);
           }}
@@ -111,7 +114,21 @@ function App() {
         </button>
       ));
   })();
-  console.log("city choose", city);
+
+  const requestDataByCityName = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=648a959b8ea7e0c395c8f575a8e5abac&units=metric&lang=en`
+      );
+      // console.log("res", res);
+      const dataJson = await res.json();
+      console.log("data", dataJson);
+      setData(dataJson);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // const fetchData = async (e) => {
   //   e.preventDefault();
@@ -160,8 +177,8 @@ function App() {
   // };
 
   // useEffect(() => {
-  //   defaultData();
-  // });
+  //   requestDataByCityName();
+  // }, []);
 
   return (
     <div className="container-weatherapp">
@@ -226,29 +243,37 @@ function App() {
                 type="text"
                 placeholder="Enter your city name.."
               />
-              <button className="weather-btn">
+              <button
+                type="submit"
+                onClick={requestDataByCityName}
+                className="weather-btn"
+              >
                 <i className="fa fa-search"></i>
               </button>
             </form>
             <div className="search-suggest">{ItemList}</div>
           </div>
           <div className="weather-desc">
-            <h2 className="weather-country">NEW YORK, USA</h2>
+            <h2 className="weather-country">
+              {data?.name} <span>{`, ${data?.sys?.country}`}</span>
+            </h2>
             <div className="weather-temp-desc">
               <div className="weather-wrap-img">
                 <img
                   className="weather-image"
-                  src={cloudImage}
+                  src={`http://openweathermap.org/img/w/${data?.weather?.[0]?.icon}.png`}
                   alt="image weather"
                 />
               </div>
               <div className="weather-temp">
-                <p className="temp">34°C</p>
-                <span className="weather-date"> Apr 01, 2023</span>
+                <p className="temp">{`${data?.main?.temp}°C`}</p>
+                <span className="weather-date">{date}</span>
               </div>
             </div>
             <div className="wrap-weather-mobile">
-              <h5 className="weather-transcript">Partly sunny</h5>
+              <h5 className="weather-transcript">
+                {data?.weather?.[0]?.description}
+              </h5>
               <div className="weather-wind-hum">
                 <div className="wrap-weather-wind">
                   <img
@@ -257,7 +282,7 @@ function App() {
                     alt="icon-wind"
                   ></img>
                   <p className="weather-wind">Wind</p>
-                  <p className="weather-wind-speed">100 km/s</p>
+                  <p className="weather-wind-speed">{`${data?.wind?.speed} km/s`}</p>
                 </div>
                 <div className="wrap-weather-wind">
                   <img
@@ -266,7 +291,7 @@ function App() {
                     alt="icon-wind"
                   ></img>
                   <p className="weather-wind">Hum</p>
-                  <p className="weather-wind-speed">54%</p>
+                  <p className="weather-wind-speed">{`${data?.main?.humidity} %`}</p>
                 </div>
               </div>
             </div>
