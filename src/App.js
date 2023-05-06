@@ -8,81 +8,76 @@ import iconHum from "./assets/icon-hum.svg";
 
 function App() {
   const listCity = [
-    "Ba Ria",
-    "Bac Lieu",
-    "Bac Giang",
-    "Bac Kan",
-    "Bac Ninh",
-    "Ben Tre",
-    "Bien Hoa",
-    "Buon Ma Thuot",
-    "Ca Mau",
+    "Bà Rịa",
+    "Bạc Liêu",
+    "Bắc Giang",
+    "Bắc Kạn",
+    "Bắc Ninh",
+    "Bến Tre",
+    "Biên Hòa",
+    "Buôn Ma Thuột",
+    "Cà Mau",
     "Cam Ranh",
-    "Cao Bang",
-    "Cao Lanh",
-    "Da Lat",
-    "Dien Bien Phu",
-    "Dong Ha",
-    "Dong Hoi",
-    "Dong Xoai",
-    "Ha Giang",
-    "Ha Long",
-    "Ha Tien",
-    "Ha Tinh",
-    "Hai Duong",
-    "Hoa Binh",
-    "Hoi An",
-    "Hue",
-    "Hung Yen",
+    "Cao Bằng",
+    "Cao Lãnh",
+    "Đà Lạt",
+    "Điện Biên Phủ",
+    "Đông Hà",
+    "Đồng Hới",
+    "Đồng Xoài",
+    "Hà Giang",
+    "Hạ Long",
+    "Hà Tiên",
+    "Hà Tĩnh",
+    "Thành phố Hải Dương",
+    "Hòa Bình",
+    "Hội An",
+    "Huế",
+    "Hưng Yên",
     "Kom Tum",
-    "Lai Chau",
-    "Lang Son",
-    "Lao Cai",
-    "Long Xuyen",
-    "My Tho",
-    "Nam Dinh",
+    "Lai Châu",
+    "Lạng Sơn",
+    "Lào Cai",
+    "Long Xuyên",
+    "Mỹ Tho",
+    "Nam Định",
     "Nha Trang",
-    "Ninh Binh",
-    "Phan Thiet",
+    "Ninh Bình",
+    "Phan Thiết",
     "Pleiku",
-    "Quang Ngai",
-    "Quy Nhon",
-    "Rach Gia",
-    "Sa Dec",
-    "Soc Trang",
-    "Son La",
-    "Tam Ky",
-    "Tan An",
-    "Tay Ninh",
-    "Thai Binh",
-    "Thai Nguyen",
-    "Thanh Hoa",
-    "Thu Dau Mot",
-    "Tra Vinh",
-    "Tuy Hoa",
-    "Tuyen Quang",
-    "Uong Bi",
-    "Viet Tri",
+    "Quảng Ngãi",
+    "Quy Nhơn",
+    "Rạch Giá",
+    "Sa Đéc",
+    "Sóc Trăng",
+    "Sơn La",
+    "Tam Kỳ",
+    "Tân An",
+    "Tây Ninh",
+    "Thái Bình",
+    "Thái Nguyên",
+    "Thanh Hóa",
+    "Thủ Dầu Một",
+    "Trà Vinh",
+    "Tuy Hòa",
+    "Tuyên Quang",
+    "Uông Bí",
     "Vinh",
-    "Vinh Long",
-    "Vinh Yen",
-    "Vung Tau",
-    "Yen Bai",
-    "Di An",
-    "Phu Quoc",
-    "Long Khanh",
-    "Ho Chi Minh",
+    "Vĩnh Long",
+    "Vĩnh Yen",
+    "Vũng Tàu",
+    "Yên Bái",
+    "Dĩ An",
+    "Phú Quốc",
+    "Long Khánh",
+    "Thành phố Hồ Chí Minh",
   ];
 
   const [city, setCity] = useState("");
   const [show, setShow] = useState(false);
   const [data, setData] = useState({});
-  // const date = new Date().toString().slice(0, 25);
-
-  const date = new Date().toString().split(" ").splice(1, 3).join(" ");
-  // let day = date2.getDate();
-
-  console.log("date", date);
+  const date = new Date().toLocaleString().split(", ").splice(0, 1);
+  const [openModal, setOpenModal] = useState(false);
 
   const [temp, setTemp] = useState("");
   const [desc, setDesc] = useState("");
@@ -119,14 +114,29 @@ function App() {
     e.preventDefault();
     try {
       const res = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=648a959b8ea7e0c395c8f575a8e5abac&units=metric&lang=en`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=648a959b8ea7e0c395c8f575a8e5abac&units=metric&lang=vi`
       );
-      // console.log("res", res);
-      const dataJson = await res.json();
-      console.log("data", dataJson);
-      setData(dataJson);
+      if (res.ok) {
+        const dataJson = await res.json();
+        console.log("data", dataJson);
+        setData(dataJson);
+      } else {
+        setOpenModal(true);
+      }
     } catch (error) {
+      setOpenModal(true);
       console.log(error);
+    }
+  };
+
+  const handleonClickButton = (e) => {
+    requestDataByCityName(e);
+  };
+
+  const handleonKeyByEnter = (e) => {
+    if (e.key === "Enter") {
+      console.log("a");
+      requestDataByCityName(e);
     }
   };
 
@@ -180,6 +190,10 @@ function App() {
   //   requestDataByCityName();
   // }, []);
 
+  console.log("length", Object.keys(data).length);
+  console.log("boolean", Boolean(data));
+  console.log("city", city);
+
   return (
     <div className="container-weatherapp">
       {/* <div className="app__container">
@@ -226,7 +240,7 @@ function App() {
         </div>
       </div> */}
       <div className="wrap-weather">
-        <h3 className="weather-title">WEATHER IN YOUR CITY</h3>
+        <h3 className="weather-title">THỜI TIẾT TRONG THÀNH PHỐ CỦA BẠN</h3>
         <div className="weather-content">
           <div className="wrap-form-suggest">
             <form className="weather-form">
@@ -241,63 +255,89 @@ function App() {
                 value={city}
                 className="weather-input"
                 type="text"
-                placeholder="Enter your city name.."
+                placeholder="Nhập tên thành phố..."
               />
               <button
                 type="submit"
-                onClick={requestDataByCityName}
+                onClick={handleonClickButton}
+                onKeyDown={handleonKeyByEnter}
                 className="weather-btn"
+                disabled={!city}
               >
                 <i className="fa fa-search"></i>
               </button>
             </form>
             <div className="search-suggest">{ItemList}</div>
           </div>
-          <div className="weather-desc">
-            <h2 className="weather-country">
-              {data?.name} <span>{`, ${data?.sys?.country}`}</span>
-            </h2>
-            <div className="weather-temp-desc">
-              <div className="weather-wrap-img">
-                <img
-                  className="weather-image"
-                  src={`http://openweathermap.org/img/w/${data?.weather?.[0]?.icon}.png`}
-                  alt="image weather"
-                />
-              </div>
-              <div className="weather-temp">
-                <p className="temp">{`${data?.main?.temp}°C`}</p>
-                <span className="weather-date">{date}</span>
-              </div>
-            </div>
-            <div className="wrap-weather-mobile">
-              <h5 className="weather-transcript">
-                {data?.weather?.[0]?.description}
-              </h5>
-              <div className="weather-wind-hum">
-                <div className="wrap-weather-wind">
+          {Object.keys(data).length !== 0 ? (
+            <div className="weather-desc">
+              <h2 className="weather-country">
+                {data ? data?.name : city}{" "}
+                <span>{`, ${data?.sys?.country}`}</span>
+              </h2>
+              <div className="weather-temp-desc">
+                <div className="weather-wrap-img">
                   <img
-                    className="icon-wind-hum"
-                    src={iconWind}
-                    alt="icon-wind"
-                  ></img>
-                  <p className="weather-wind">Wind</p>
-                  <p className="weather-wind-speed">{`${data?.wind?.speed} km/s`}</p>
+                    className="weather-image"
+                    src={`http://openweathermap.org/img/w/${data?.weather?.[0]?.icon}.png`}
+                    alt="image weather"
+                  />
                 </div>
-                <div className="wrap-weather-wind">
-                  <img
-                    className="icon-wind-hum"
-                    src={iconHum}
-                    alt="icon-wind"
-                  ></img>
-                  <p className="weather-wind">Hum</p>
-                  <p className="weather-wind-speed">{`${data?.main?.humidity} %`}</p>
+                <div className="weather-temp">
+                  <p className="temp">{`${data?.main?.temp}°C`}</p>
+                  <span className="weather-date">{date}</span>
                 </div>
               </div>
+              <div className="wrap-weather-mobile">
+                <h5 className="weather-transcript">
+                  {data?.weather?.[0]?.description}
+                </h5>
+                <div className="weather-wind-hum">
+                  <div className="wrap-weather-wind">
+                    <img
+                      className="icon-wind-hum"
+                      src={iconWind}
+                      alt="icon-wind"
+                    ></img>
+                    <p className="weather-wind">Tốc độ gió</p>
+                    <p className="weather-wind-speed">{`${data?.wind?.speed} km/s`}</p>
+                  </div>
+                  <div className="wrap-weather-wind">
+                    <img
+                      className="icon-wind-hum"
+                      src={iconHum}
+                      alt="icon-wind"
+                    ></img>
+                    <p className="weather-wind">Độ ẩm</p>
+                    <p className="weather-wind-speed">{`${data?.main?.humidity} %`}</p>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="weather-notinput">
+              Thời tiết hôm nay thế nào? <br></br>Hãy nhập tên thành phố mà bạn
+              muốn
+            </div>
+          )}
         </div>
       </div>
+      {openModal && (
+        <div className="weather-backdrop">
+          <div className="weather-wrap-modal">
+            <button
+              onClick={() => setOpenModal(false)}
+              className="weather-modal-close"
+            >
+              <span className="icon-close">X</span>
+            </button>
+            <p className="weather-modal-content">
+              Thành phố bạn tìm không có. <br></br>Hãy nhập lại tên thành phố
+              khác!
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

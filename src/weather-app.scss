@@ -127,7 +127,7 @@
     padding: 22px 42px;
     background: rgba(34, 29, 29, 0.24);
     border-radius: 10px;
-    width: 35%;
+    width: 38%;
     margin: 0 auto;
 
     @media only screen and (max-width: $breakpoints-xl) {
@@ -155,6 +155,7 @@
     border-right: 2px solid rgba(255, 255, 255, 0.8);
     padding-right: 17px;
     margin-right: 20px;
+    min-width: 45%;
   }
 
   .weather-wind-speed {
@@ -210,6 +211,71 @@
       &:hover {
         background-color: $hover;
       }
+    }
+  }
+
+  .weather-notinput {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 38px;
+    line-height: 45px;
+    color: $white;
+    width: 50%;
+    text-align: center;
+    margin: 0 auto;
+    background-color: rgba(34, 29, 29, 0.24);
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .weather-backdrop {
+    background-color: rgba(0, 0, 0, 0.65);
+    overflow-y: hidden;
+    position: fixed;
+    z-index: 400;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    margin-inline: -20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .weather-wrap-modal {
+    background-color: $white;
+    max-width: 40%;
+    padding: 20px;
+    border-radius: 5px;
+    min-height: 250px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+
+  .weather-modal-content {
+    font-size: 30px;
+    font-family: "Roboto";
+    text-align: center;
+  }
+
+  .weather-modal-close {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    width: 24px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+
+    .icon-close {
+      color: $gray;
+      font-size: 24px;
     }
   }
 }
@@ -323,6 +389,19 @@
         line-height: 18px;
       }
     }
+
+    .weather-wrap-modal {
+      max-width: 60%;
+    }
+
+    .weather-notinput {
+      width: 60%;
+    }
+
+    .weather-notinput {
+      font-size: 24px;
+      line-height: 29px;
+    }
   }
 }
 
@@ -330,6 +409,10 @@
   .container-weatherapp {
     .wrap-weather-mobile {
       width: 100%;
+    }
+
+    .weather-wrap-modal {
+      max-width: 80%;
     }
   }
 }
