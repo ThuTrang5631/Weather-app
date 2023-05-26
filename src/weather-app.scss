@@ -296,7 +296,7 @@
 @media only screen and (max-width: $breakpoints-md) {
   .container-weatherapp {
     .weather-title {
-      font-size: 24px;
+      font-size: 19px;
       line-height: 29px;
       margin-bottom: 35px;
     }
@@ -414,17 +414,20 @@
     .weather-wrap-modal {
       max-width: 80%;
     }
+
+    .weather-title {
+      font-size: 15px;
+    }
   }
 }
 
 @media only screen and (max-width: $breakpoints-xxs) {
   .container-weatherapp {
-    .weather-title {
-      font-size: 20px;
-    }
-
     .wrap-form-suggest {
       padding-left: 10vw;
+    }
+    .search-suggest {
+      top: 215px;
     }
   }
 }
